@@ -35,6 +35,9 @@ RUN apt-get update -y && apt-get install -y \
     bedops \
     tabix
 
+
+WORKDIR /usr/local/bin
+
 # install R required dependencies
 RUN R --vanilla -e 'install.packages(c("vcfR"), repos="http://cran.us.r-project.org")'
 
