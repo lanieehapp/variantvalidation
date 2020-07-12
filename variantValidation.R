@@ -7,9 +7,11 @@ library(plyr)
 args = commandArgs(trailingOnly=TRUE)
 
 vf_id<-args[[1]]
-align_id<-arge[[2]]
+align_id<-args[[2]]
 
-source("~/Dropbox (DaveLab)/Lanie_resources/scripts/multisample_merger_functions.R")
+ref<-args[[3]]
+
+source("/data/multisample_merger_functions.R")
 get_vcf(file=vf_id)
 get_dna_bam(file=align_id)
 get_rna_bam(file=align_id)
@@ -41,7 +43,7 @@ file<-list.files(path="~/tmp", pattern = glob2rx("*dna*.bam"))
 file<-paste0("~/tmp/", file)
 
 #comm<-paste0("bcftools mpileup -R whitelist_bed.txt -d 1000 --fasta-ref GRCh38.p12.genome.plus.ERCC.fa ", file, " > rna_vars.txt" )
-comm<-paste0('bcftools mpileup -R whitelist_bed.txt -d 1000 --fasta-ref GRCh38.p12.genome.plus.ERCC.fa ', file, ' | bcftools call -m -A -M | grep -v "##" > dna_whitelist.txt' )
+comm<-paste0('bcftools mpileup -R whitelist_bed.txt -d 1000 --fasta-ref ',ref, ' ', file, ' | bcftools call -m -A -M | grep -v "##" > dna_whitelist.txt' )
 system(comm)
 
 dna_whitelist<-read.csv(file="dna_whitelist.txt", sep="\t")
@@ -85,7 +87,7 @@ file<-list.files(path="~/tmp", pattern = glob2rx("*rna*.bam"))
 file<-paste0("~/tmp/", file)
 
 #comm<-paste0("bcftools mpileup -R whitelist_bed.txt -d 1000 --fasta-ref GRCh38.p12.genome.plus.ERCC.fa ", file, " > rna_vars.txt" )
-comm<-paste0('bcftools mpileup -R whitelist_bed.txt -d 1000 --fasta-ref GRCh38.p12.genome.plus.ERCC.fa ', file, ' | bcftools call -m -A -M | grep -v "##" > rna_whitelist.txt' )
+comm<-paste0('bcftools mpileup -R whitelist_bed.txt -d 1000 --fasta-ref ', ref, ' ', file, ' | bcftools call -m -A -M | grep -v "##" > rna_whitelist.txt' )
 system(comm)
 
 rna_whitelist<-read.csv(file="rna_whitelist.txt", sep="\t")
@@ -127,7 +129,7 @@ all_whitelist<-merge(x=whitelist, y=whitelist_rna, by="CHROM_POS_REF_ALT", all.x
 ##################### dna filtered variants in rna ####################
 
 #comm<-paste0("bcftools mpileup -R whitelist_bed.txt -d 1000 --fasta-ref GRCh38.p12.genome.plus.ERCC.fa ", file, " > rna_vars.txt" )
-comm<-paste0('bcftools mpileup -R filt_bed.txt -d 1000 --fasta-ref GRCh38.p12.genome.plus.ERCC.fa ', file, ' | bcftools call -m -A -M | grep -v "##" > rna_filt.txt' )
+comm<-paste0('bcftools mpileup -R filt_bed.txt -d 1000 --fasta-ref ', ref, " ", file, ' | bcftools call -m -A -M | grep -v "##" > rna_filt.txt' )
 system(comm)
 
 rna_filt<-read.csv(file="rna_filt.txt", sep="\t")
