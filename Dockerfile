@@ -39,7 +39,7 @@ RUN apt-get update -y && apt-get install -y \
 WORKDIR /usr/local/bin
 
 # install R required dependencies
-RUN R --vanilla -e 'install.packages(c("vcfR"), repos="http://cran.us.r-project.org")'
+RUN R --vanilla -e 'install.packages(c("vcfR", "stringr"), repos="http://cran.us.r-project.org")'
 
 # clone variantvalidation
 ADD https://api.github.com/repos/lanieehapp/variantvalidation/git/refs/heads/ version.json
