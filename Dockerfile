@@ -34,7 +34,6 @@ RUN apt-get update -y && apt-get install -y \
     libgcc-8-dev \
     bedops \
     tabix
-# install Python libraries
 
 # install R required dependencies
 RUN R --vanilla -e 'install.packages(c("vcfR"), repos="http://cran.us.r-project.org")'
