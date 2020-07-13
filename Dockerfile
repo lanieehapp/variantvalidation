@@ -11,6 +11,7 @@ RUN apt-get update -y && apt-get install -y \
     curl \
     vim \
     devscripts \
+    bcftools \ 
     less \
     wget \
     unzip \
