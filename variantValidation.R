@@ -34,7 +34,7 @@ var.length<-apply(filt.fix[,4:5], 1, function(x){max(nchar(x))})
 end.pos<-as.numeric(filt.fix$POS)+var.length-1
 filt.bed<-cbind(filt.fix$CHROM, filt.fix$POS, end.pos)
 filt.bed<-unique(filt.bed)
-write.table(filt.bed, sep="\t", file="filt_bed.txt", row.names=FALSE, col.names=FALSE, quote=FALSE)
+write.table(filt.bed, sep="\t", file="/data/filt_bed.txt", row.names=FALSE, col.names=FALSE, quote=FALSE)
 
 ################## dna whitelist ##################
 file<-dna_bam_path
@@ -44,7 +44,7 @@ file<-dna_bam_path
 comm<-paste0('bcftools mpileup -R whitelist_bed.txt -d 1000 --fasta-ref ',ref, ' ', file, ' | bcftools call -m -A -M | grep -v "##" > dna_whitelist.txt' )
 system(comm)
 
-dna_whitelist<-read.csv(file="dna_whitelist.txt", sep="\t")
+dna_whitelist<-read.csv(file="/data/dna_whitelist.txt", sep="\t")
 dna_whitelist$CHROM_POS_REF_ALT<-paste(dna_whitelist$X.CHROM, dna_whitelist$POS, dna_whitelist$REF, dna_whitelist$ALT, sep="-")
 
 all.info<-as.character(dna_whitelist$INFO)
@@ -165,5 +165,5 @@ filt_rna$RNA_EVIDENCE[filt_rna$RNA_ALT>2]<-TRUE
 
 #all_whitelist<-merge(x=whitelist, y=whitelist_rna, by="CHROM_POS_REF_ALT", all.x=T, all.y=T)
 
-write.csv(filt_rna, file="filtered_vars_in_RNA.csv")
-write.csv(all_whitelist, file="all_whitelist_vars.csv")
+write.csv(filt_rna, file="/data/filtered_vars_in_RNA.csv")
+write.csv(all_whitelist, file="/data/all_whitelist_vars.csv")
