@@ -8,14 +8,16 @@ args = commandArgs(trailingOnly=TRUE)
 
 vcf_path<-args[[1]]
 dna_bam_path<-args[[2]]
-rna_bam_path<-args[[3]]
+dna_bam_idx_path<-args[[3]]
+rna_bam_path<-args[[4]]
+rna_bam_idx_path<-args[[5]]
 
-ref<-args[[4]]
+ref<-args[[6]]
 
-source("multisample_merger_functions.R")
-get_vcf(file=vf_id)
-get_dna_bam(file=align_id)
-get_rna_bam(file=align_id)
+#source("multisample_merger_functions.R")
+#get_vcf(file=vf_id)
+#get_dna_bam(file=align_id)
+#get_rna_bam(file=align_id)
 
 #get variant location regions in bed format - from whitelist (RNA + DNA) and filtered variants (RNA only)
 
