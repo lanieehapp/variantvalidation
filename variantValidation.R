@@ -6,10 +6,11 @@ library(plyr)
 
 args = commandArgs(trailingOnly=TRUE)
 
-vf_id<-args[[1]]
-align_id<-args[[2]]
+vcf_path<-args[[1]]
+dna_bam_path<-args[[2]]
+rna_bam_path<-args[[3]]
 
-ref<-args[[3]]
+ref<-args[[4]]
 
 source("multisample_merger_functions.R")
 get_vcf(file=vf_id)
