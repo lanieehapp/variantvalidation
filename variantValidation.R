@@ -8,11 +8,9 @@ args = commandArgs(trailingOnly=TRUE)
 
 vcf_path<-args[[1]]
 dna_bam_path<-args[[2]]
-dna_bam_idx_path<-args[[3]]
-rna_bam_path<-args[[4]]
-rna_bam_idx_path<-args[[5]]
+rna_bam_path<-args[[3]]
 
-ref<-args[[6]]
+ref<-args[[4]]
 
 #source("multisample_merger_functions.R")
 #get_vcf(file=vf_id)
