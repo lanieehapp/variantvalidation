@@ -44,7 +44,7 @@ file<-dna_bam_path
 comm<-paste0('bcftools mpileup -R whitelist_bed.txt -d 1000 --fasta-ref ',ref, ' ', file, ' | bcftools call -m -A -M | grep -v "##" > dna_whitelist.txt' )
 system(comm)
 
-dna_whitelist<-read.csv(file="/data/dna_whitelist.txt", sep="\t")
+dna_whitelist<-read.csv(file="dna_whitelist.txt", sep="\t")
 dna_whitelist$CHROM_POS_REF_ALT<-paste(dna_whitelist$X.CHROM, dna_whitelist$POS, dna_whitelist$REF, dna_whitelist$ALT, sep="-")
 
 all.info<-as.character(dna_whitelist$INFO)
