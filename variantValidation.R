@@ -34,7 +34,7 @@ var.length<-apply(filt.fix[,4:5], 1, function(x){max(nchar(x))})
 end.pos<-as.numeric(filt.fix$POS)+var.length-1
 filt.bed<-cbind(filt.fix$CHROM, filt.fix$POS, end.pos)
 filt.bed<-unique(filt.bed)
-write.table(filt.bed, sep="\t", file="/data/filt_bed.txt", row.names=FALSE, col.names=FALSE, quote=FALSE)
+write.table(filt.bed, sep="\t", file="filt_bed.txt", row.names=FALSE, col.names=FALSE, quote=FALSE)
 
 ################## dna whitelist ##################
 file<-dna_bam_path
