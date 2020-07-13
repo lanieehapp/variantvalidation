@@ -111,7 +111,7 @@ dp4$X2<-as.numeric(dp4$X2)
 dp4$X3<-as.numeric(dp4$X3)
 dp4$X4<-as.numeric(dp4$X4)
 
-#whitelist_rna<-NULL
+whitelist_rna<-NULL
 whitelist_rna$CHROM_POS_REF_ALT<-rna_whitelist$CHROM_POS_REF_ALT
 whitelist_rna$RNA_REF<-dp4$X1 + dp4$X2
 whitelist_rna$RNA_ALT<-dp4$X3 + dp4$X4
