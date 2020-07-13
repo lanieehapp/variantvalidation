@@ -11,7 +11,7 @@ align_id<-args[[2]]
 
 ref<-args[[3]]
 
-source("/data/multisample_merger_functions.R")
+source("multisample_merger_functions.R")
 get_vcf(file=vf_id)
 get_dna_bam(file=align_id)
 get_rna_bam(file=align_id)
