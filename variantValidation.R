@@ -29,9 +29,9 @@ ref<-args[[6]]
 #whitelist.bed<-unique(whitelist.bed)
 #write.table(whitelist.bed, sep="\t", file="whitelist_bed.txt", row.names=FALSE, col.names=FALSE, quote=FALSE)
 
-file<-list.files(path="~/tmp/",pattern = ".RData")
+file<-list.files(pattern = ".RData")
 
-load(paste0("~/tmp/",file))
+load(paste0(file))
 
 filt.fix<-single.sample.merged[[4]]
 
@@ -42,8 +42,8 @@ filt.bed<-unique(filt.bed)
 write.table(filt.bed, sep="\t", file="filt_bed.txt", row.names=FALSE, col.names=FALSE, quote=FALSE)
 
 ################## dna whitelist ##################
-file<-list.files(path="~/tmp", pattern = glob2rx("*dna*.bam"))
-file<-paste0("~/tmp/", file)
+file<-list.files(pattern = glob2rx("*dna*.bam"))
+#file<-paste0("/data/", file)
 
 #comm<-paste0("bcftools mpileup -R whitelist_bed.txt -d 1000 --fasta-ref GRCh38.p12.genome.plus.ERCC.fa ", file, " > rna_vars.txt" )
 comm<-paste0('bcftools mpileup -R whitelist_bed.txt -d 1000 --fasta-ref ',ref, ' ', file, ' | bcftools call -m -A -M | grep -v "##" > dna_whitelist.txt' )
@@ -86,8 +86,8 @@ whitelist$DNA_EVIDENCE[whitelist$DNA_ALT>2]<-TRUE
 
 
 ##################### rna whitelist ####################
-file<-list.files(path="~/tmp", pattern = glob2rx("*rna*.bam"))
-file<-paste0("~/tmp/", file)
+file<-list.files(pattern = glob2rx("*rna*.bam"))
+#file<-paste0("/", file)
 
 #comm<-paste0("bcftools mpileup -R whitelist_bed.txt -d 1000 --fasta-ref GRCh38.p12.genome.plus.ERCC.fa ", file, " > rna_vars.txt" )
 comm<-paste0('bcftools mpileup -R whitelist_bed.txt -d 1000 --fasta-ref ', ref, ' ', file, ' | bcftools call -m -A -M | grep -v "##" > rna_whitelist.txt' )
