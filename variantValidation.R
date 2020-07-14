@@ -134,10 +134,10 @@ all_whitelist<-merge(x=whitelist, y=whitelist_rna, by="CHROM_POS_REF_ALT", all.x
 ##################### dna filtered variants in rna ####################
 
 #comm<-paste0("bcftools mpileup -R whitelist_bed.txt -d 1000 --fasta-ref GRCh38.p12.genome.plus.ERCC.fa ", file, " > rna_vars.txt" )
-comm<-paste0('bcftools mpileup -R filt_bed.txt -d 1000 --fasta-ref ', ref, " ", file, ' | bcftools call -m -A -M | grep -v "##" > rna_filt.txt' )
+comm<-paste0('bcftools mpileup -R filt_bed.txt -d 1000 --fasta-ref ', ref, " ", file, ' | bcftools call -m -A -M | grep -v "##" > /data/rna_filt.txt' )
 system(comm)
 
-rna_filt<-read.csv(file="rna_filt.txt", sep="\t", stringsAsFactors = FALSE)
+rna_filt<-read.csv(file="/data/rna_filt.txt", sep="\t", stringsAsFactors = FALSE)
 rna_filt$CHROM_POS_REF_ALT<-paste(rna_filt$X.CHROM, rna_filt$POS, rna_filt$REF, rna_filt$ALT, sep="-")
 
 all.info<-as.character(rna_filt$INFO)
@@ -172,13 +172,18 @@ filt_rna$RNA_EVIDENCE[filt_rna$RNA_DEPTH<30]<-"LOW_COVERAGE"
 filt_rna$RNA_EVIDENCE[dp4$X3>1 & dp4$X4>1]<-TRUE
 filt_rna$RNA_EVIDENCE[str_count(rna_filt$ALT, ",")>0]<-"MULTIALLELIC"
 
-
-
-
+for(i in 1:nrow(filt_rna)){
+  var<-as.character(filt_rna$CHROM_POS_REF_ALT[i])
+  var_spl<-unlist(str_split(var, "-"))
+  if(paste0(var_spl[1], "-", var_spl[2]) %in% paste0(filt.fix$CHROM, "-", filt.fix$POS)){
+    
+  }
+  
+}
 
 #all_whitelist<-merge(x=whitelist, y=whitelist_rna, by="CHROM_POS_REF_ALT", all.x=T, all.y=T)
 
 
 
-write.table(filt_rna, file="/data/filtered_vars_in_RNA.tsv", quote=FALSE, sep="\t")
-write.table(all_whitelist, file="/data/all_whitelist_vars.tsv", quote=FALSE, sep="\t")
+write.table(filt_rna, file="/data/filtered_vars_in_RNA.tsv", quote=FALSE, sep="\t", row.names = FALSE)
+write.table(all_whitelist, file="/data/all_whitelist_vars.tsv", quote=FALSE, sep="\t", row.names=FALSE)
