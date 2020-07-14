@@ -133,6 +133,8 @@ all_whitelist<-merge(x=whitelist, y=whitelist_rna, by="CHROM_POS_REF_ALT", all.x
 
 ##################### dna filtered variants in rna ####################
 
+#file=
+
 #comm<-paste0("bcftools mpileup -R whitelist_bed.txt -d 1000 --fasta-ref GRCh38.p12.genome.plus.ERCC.fa ", file, " > rna_vars.txt" )
 comm<-paste0('bcftools mpileup -R filt_bed.txt -d 1000 --ignore-RG --fasta-ref ', ref, " ", file, ' | bcftools call -m -A -M | grep -v "##" > /data/rna_filt.txt' )
 system(comm)
@@ -178,16 +180,20 @@ filt_rna$ALT<-rna_filt$ALT
 fix_pos<-paste0(filt.fix$CHROM, "-", filt.fix$POS)
 
 filt.gt$RNA_EVIDENCE<-NA
+filt.gt$RNA_AF<-NA
+filt.gt$RNA_DEPTH<-NA
 for(i in 1:nrow(filt_rna)){
   if(filt_rna$CHROM_POS[i] %in% fix_pos){
     idx<-which(fix_pos == filt_rna$CHROM_POS[i])
     filt.gt$RNA_EVIDENCE[idx]<-filt_rna$RNA_EVIDENCE[i]
+    filt.gt$RNA_AF[idx]<-filt_rna$RNA_AF[i]
+    filt.gt$RNA_DEPTH[idx]<-filt_rna$RNA_DEPTH[i]
   }
 }
 
 samp.id<-unlist(str_split(colnames(filt.gt)[2], "[.]"))[1]
 
-colnames(filt.gt)[36]<-paste0(samp.id, ".RNA_EVIDENCE")
+colnames(filt.gt)[29:31]<-c(paste0(samp.id, ".RNA_EVIDENCE"), paste0(samp.id, ".RNA_AF"), paste0(samp.id, ".RNA_DEPTH"))
 
 #all_whitelist<-merge(x=whitelist, y=whitelist_rna, by="CHROM_POS_REF_ALT", all.x=T, all.y=T)
 
