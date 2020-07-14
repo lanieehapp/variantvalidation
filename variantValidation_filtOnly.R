@@ -91,6 +91,6 @@ single.sample.filt<-list(single.sample.merged[[4]], single.sample.merged[[5]], f
 
 save(single.sample.filt, file="/data/single_sample_filtered_withRNA.RData")
 
-simple.single.sample<-cbind(filt.fix, filt.gt[,grep("nCallers|afMax|dpMax|RNA_EVIDENCE", colnames(filt.gt))])
+simple.single.sample<-cbind(filt.fix, filt.gt[,grep("nCallers|afMax|dpMax|RNA_EVIDENCE|RNA_AF|RNA_DEPTH", colnames(filt.gt))])
 write.table(simple.single.sample, file="/data/simple_single_sample.tsv", quote=FALSE, row.names = FALSE, sep="\t")
 
