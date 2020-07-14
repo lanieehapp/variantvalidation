@@ -206,6 +206,6 @@ save(single.sample.filt, file="/data/single_sample_filtered_withRNA.RData")
 write.table(all_whitelist, file="/data/all_whitelist_vars.tsv", quote=FALSE, sep="\t", row.names=FALSE)
 
 
-simple.single.sample<-cbind(filt.fix, filt.gt[,grep("nCallers|afMax|dpMax|RNA_EVIDENCE", colnames(filt.gt))])
+simple.single.sample<-cbind(filt.fix, filt.gt[,grep("nCallers|afMax|dpMax|RNA_EVIDENCE|RNA_AF|RNA_DEPTH", colnames(filt.gt))])
 write.table(simple.single.sample, file="/data/simple_single_sample.tsv", quote=FALSE, row.names = FALSE, sep="\t")
 
