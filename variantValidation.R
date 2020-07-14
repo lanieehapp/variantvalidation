@@ -180,5 +180,5 @@ filt_rna$RNA_EVIDENCE[str_count(rna_filt$ALT, ",")>0]<-"MULTIALLELIC"
 
 
 
-write.csv(filt_rna, file="/data/filtered_vars_in_RNA.csv", quote=FALSE)
-write.csv(all_whitelist, file="/data/all_whitelist_vars.csv", quote=FALSE)
+write.table(filt_rna, file="/data/filtered_vars_in_RNA.tsv", quote=FALSE, sep="\t")
+write.table(all_whitelist, file="/data/all_whitelist_vars.tsv", quote=FALSE, sep="\t")
