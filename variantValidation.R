@@ -29,6 +29,7 @@ ref<-args[[4]]
 load(vcf_path)
 
 filt.fix<-single.sample.merged[[4]]
+filt.gt<-single.sample.merged[[5]]
 
 var.length<-apply(filt.fix[,4:5], 1, function(x){max(nchar(x))})
 end.pos<-as.numeric(filt.fix$POS)+var.length-1
@@ -161,9 +162,12 @@ filt_rna$RNA_DEPTH<-filt_rna$RNA_ALT+filt_rna$RNA_REF
 filt_rna$RNA_AF<-filt_rna$RNA_ALT/filt_rna$RNA_DEPTH
 filt_rna<-data.frame(filt_rna)
 filt_rna$RNA_EVIDENCE<-FALSE
-filt_rna$RNA_EVIDENCE[filt_rna$RNA_ALT>2]<-TRUE
+filt_rna$RNA_EVIDENCE[filt_rna$RNA_DEPTH<30]<-"LOW_COVERAGE"
+filt_rna$RNA_EVIDENCE[dp4$X3>1 & dp4$X4>1]<-TRUE
 
 #all_whitelist<-merge(x=whitelist, y=whitelist_rna, by="CHROM_POS_REF_ALT", all.x=T, all.y=T)
 
-write.csv(filt_rna, file="/data/filtered_vars_in_RNA.csv")
-write.csv(all_whitelist, file="/data/all_whitelist_vars.csv")
+
+
+write.csv(filt_rna, file="/data/filtered_vars_in_RNA.csv", quote=FALSE)
+write.csv(all_whitelist, file="/data/all_whitelist_vars.csv", quote=FALSE)
