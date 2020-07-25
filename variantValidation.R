@@ -42,7 +42,7 @@ file<-dna_bam_path
 #file<-paste0("/data/", file)
 
 #comm<-paste0("bcftools mpileup -R whitelist_bed.txt -d 1000 --fasta-ref GRCh38.p12.genome.plus.ERCC.fa ", file, " > rna_vars.txt" )
-comm<-paste0('bcftools mpileup -R filtered_whitelist_07252020.csv -d 1000 --ignore-RG --fasta-ref ',ref, ' ', file, ' | bcftools call -m -A -M | grep -v "##" > dna_whitelist.txt' )
+comm<-paste0('bcftools mpileup -R whitelist_bed_07252020.txt -d 1000 --ignore-RG --fasta-ref ',ref, ' ', file, ' | bcftools call -m -A -M | grep -v "##" > dna_whitelist.txt' )
 system(comm)
 
 dna_whitelist<-read.csv(file="dna_whitelist.txt", sep="\t", stringsAsFactors = FALSE)
@@ -88,7 +88,7 @@ file<-rna_bam_path
 #file<-paste0("/", file)
 
 #comm<-paste0("bcftools mpileup -R whitelist_bed.txt -d 1000 --fasta-ref GRCh38.p12.genome.plus.ERCC.fa ", file, " > rna_vars.txt" )
-comm<-paste0('bcftools mpileup -R whitelist_bed.txt -d 1000 --ignore-RG --fasta-ref ', ref, ' ', file, ' | bcftools call -m -A -M | grep -v "##" > rna_whitelist.txt' )
+comm<-paste0('bcftools mpileup -R whitelist_bed_07252020.txt -d 1000 --ignore-RG --fasta-ref ', ref, ' ', file, ' | bcftools call -m -A -M | grep -v "##" > rna_whitelist.txt' )
 system(comm)
 
 rna_whitelist<-read.csv(file="rna_whitelist.txt", sep="\t", stringsAsFactors = FALSE)
